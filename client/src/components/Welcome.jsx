@@ -48,6 +48,30 @@ const Welcome = () => {
                     </div>
                 </div>
            </div>
+           <div className="flex flex-col flex-1 items-center mt-10">
+                <div className="flex p-3 justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card white-glassmorpism">
+                    <div className="flex justify-between flex-col w-full h-full">
+                        <div className="flex justify-between items-start">
+                            <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
+                                <SiEthereum fontSize={21} color="#fff" />
+                            </div>
+                            <BsInfoCircle fontSize={17} color="fff" /> 
+                        </div>
+                        <div>
+                            <p className="text-white font-light text-sm">
+                                Address
+                            </p>
+                            <p className="text-white font-semibold text-sm mt-1">
+                                Etherum
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="p-5 sm:w-96 w-full flex flex-col justyfy-start items-center blue-glassmorphism">
+
+                </div>
+            </div>
+            
        </div>
     );
 }
