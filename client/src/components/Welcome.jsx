@@ -49,7 +49,6 @@ const Welcome = () => {
                 </p>
               </button>
            
-  
             <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
               <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
                 Reliability
