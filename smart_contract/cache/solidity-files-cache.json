@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/wojciech/Documents/Web 3.0/smart_contract/contracts/Greeter.sol": {
-      "lastModificationDate": 1656395230814,
+    "C:\\Users\\woj28\\Documents\\smartcrypt\\smart_contract\\contracts\\Greeter.sol": {
+      "lastModificationDate": 1656570904387,
       "contentHash": "54c28c84e5277b35b8c8329ce9755dae",
       "sourceName": "contracts/Greeter.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.0",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -38,12 +38,12 @@
         "Greeter"
       ]
     },
-    "/Users/wojciech/Documents/Web 3.0/smart_contract/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1656395067804,
+    "C:\\Users\\woj28\\Documents\\smartcrypt\\smart_contract\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1656571335209,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.0",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -71,6 +71,41 @@
       ],
       "artifacts": [
         "console"
+      ]
+    },
+    "C:\\Users\\woj28\\Documents\\smartcrypt\\smart_contract\\contracts\\Transaction.sol": {
+      "lastModificationDate": 1656571598943,
+      "contentHash": "71a87e22ab1ff090f615c6f3b5b43083",
+      "sourceName": "contracts/Transaction.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Transaction"
       ]
     }
   }
