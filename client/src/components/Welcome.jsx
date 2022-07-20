@@ -25,8 +25,8 @@ const Welcome = () => {
 		TransactionContext
 	);
 
-	const handleSubmit = () => {
-		const { addressTo, amount, keyword, message } = formData.value;
+	const handleSubmit = (e) => {
+		const { addressTo, amount, keyword, message } = formData;
 
 		e.preventDefault();
 
@@ -89,7 +89,7 @@ const Welcome = () => {
 
 						<div className="h-[1px] w-full bg-gray-400 my-2" />
 
-						{true ? (
+						{false ? (
 							<Loader />
 						) : (
 							<button
