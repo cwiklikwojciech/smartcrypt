@@ -12,6 +12,7 @@ const getEthereumContract = () => {
 	const provider = new ethers.providers.Web3Provider(ethereum);
 	const signer = provider.getSigner();
 	const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
+
 	return transactionsContract;
 };
 
@@ -37,8 +38,6 @@ export const TransactionsProvider = ({ children }) => {
 			} else {
 				console.log('No accounts found');
 			}
-
-			console.log(accounts);
 		} catch (error) {
 			throw new Error('No etherum object');
 		}
@@ -60,44 +59,47 @@ export const TransactionsProvider = ({ children }) => {
 
 	const sendTransaction = async () => {
 		try {
-			if (!ethereum) return alert('Please install MetaMask.');
+			if (ethereum) {
+				const { addressTo, amount, keyword, message } = formData;
+				const transactionsContract = getEthereumContract();
+				const parsedAmount = ethers.utils.parseEther(amount);
 
-			const { addressTo, amount, keyword, message } = formData;
-			const transactionContract = getEthereumContract();
-			const parsedAmount = ethers.utils.parseEther(amount);
+				await ethereum.request({
+					method: 'eth_sendTransaction',
+					params: [
+						{
+							from: currentAccount,
+							to: addressTo,
+							gas: '0x4DD1E0',
+							value: parsedAmount._hex
+						}
+					]
+				});
 
-			await ethereum.request({
-				method: 'eth_sendTransaction',
-				params: [
-					{
-						from: currentAccount,
-						to: addressTo,
-						gas: '0x5208', //21000 Gwei
-						value: parsedAmount._hex //0.0001
-					}
-				]
-			});
+				const transactionHash = await transactionsContract.addToBlockchain(
+					addressTo,
+					parsedAmount,
+					message,
+					keyword
+				);
 
-			const transactionHash = await transactionContract.addToBlockchain(
-				addressTo,
-				parsedAmount,
-				message,
-				keyword
-			);
+				setIsLoading(true);
+				console.log(`Loading - ${transactionHash.hash}`);
+				await transactionHash.wait();
+				console.log(`Success - ${transactionHash.hash}`);
+				setIsLoading(false);
 
-			setIsLoading(true);
-			console.log(`Loading - ${transactionHash.hash}`);
-			await transactionHash.wait();
-			setIsLoading(false);
-			console.log(`Success - ${transactionHash.hash}`);
+				const transactionsCount = await transactionsContract.getTransactionCount();
 
-			const transactionCount = await transactionContract.getTransactionCount();
-
-			setTransactionCount(transactionCount.toNumber);
+				setTransactionCount(transactionsCount.toNumber());
+				window.location.reload();
+			} else {
+				console.log('No ethereum object');
+			}
 		} catch (error) {
 			console.log(error);
 
-			throw new Error('No etherum object');
+			throw new Error('No ethereum object');
 		}
 	};
 
