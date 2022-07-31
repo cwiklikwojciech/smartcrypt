@@ -8,9 +8,11 @@ export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
-const getEthereumContract = () => {
+const createEthereumContract = () => {
 	const provider = new ethers.providers.Web3Provider(ethereum);
+
 	const signer = provider.getSigner();
+
 	const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
 
 	return transactionsContract;
@@ -27,6 +29,20 @@ export const TransactionsProvider = ({ children }) => {
 		setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
 	};
 
+	const getAllTransactions = async () => {
+		try {
+			if (!ethereum) return alert('Please install MetaMask.');
+			const transactionsContract = createEthereumContract();
+			console.log(transactionsContract);
+
+			const availableTransactions = await transactionsContract.getAllTransactions();
+
+			console.log(availableTransactions);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const checkIfWalletIsConnect = async () => {
 		try {
 			if (!ethereum) return alert('Please install MetaMask.');
@@ -35,11 +51,29 @@ export const TransactionsProvider = ({ children }) => {
 
 			if (accounts.length) {
 				setCurrentAccount(accounts[0]);
+
+				getAllTransactions();
 			} else {
 				console.log('No accounts found');
 			}
 		} catch (error) {
 			throw new Error('No etherum object');
+		}
+	};
+
+	const checkIfTransactionsExists = async () => {
+		try {
+			if (ethereum) {
+				const transactionsContract = createEthereumContract();
+				console.log(transactionsContract);
+				const availableTransactions = await transactionsContract.getTransactionsCount();
+
+				console.log(availableTransactions);
+			}
+		} catch (error) {
+			console.log(error);
+
+			throw new Error('No ethereum object');
 		}
 	};
 
@@ -105,6 +139,7 @@ export const TransactionsProvider = ({ children }) => {
 
 	useEffect(() => {
 		checkIfWalletIsConnect();
+		checkIfTransactionsExists();
 	}, []);
 
 	return (
